@@ -1,5 +1,7 @@
 from process_utils import execute_local_command, execute_remote_command
 
+# TODO think about metrics that may span multiple lines and how to handle their publishing
+
 class CPU:
     def __init__(self):
         pass
@@ -20,11 +22,23 @@ class PMAP:
     def get(self, host, pid):
         command = 'pmap -x {0}'.format(pid)
         output = execute_local_command(command) if host == 'localhost' else execute_remote_command(command, host)
-        return output[-1].strip()
+        return "".join(output)
 
     def __repr__(self):
         return "Memory map of a process"
 
+
+class PMAP_TOTAL:
+    def __init__(self):
+        pass
+
+    def get(self, host, pid):
+        command = 'pmap -x {0}'.format(pid)
+        output = execute_local_command(command) if host == 'localhost' else execute_remote_command(command, host)
+        return output[-1].strip().split()[4]
+
+    def __repr__(self):
+        return "Memory map of a process"
 
 class RSS:
     def __init__(self):
