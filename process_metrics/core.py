@@ -10,9 +10,11 @@ class Fetcher:
         self.output = None
 
     def on(self, host):
+        self.host = host
         return self
 
     def of(self, pid):
+        self.pid = pid
         return self
 
     def echo_to(self, stream):
@@ -28,7 +30,7 @@ class Fetcher:
         return self.output
 
     def retrieve(self):
-        self.output = self.metric.get()
+        self.output = self.metric.get(self.host, self.pid)
         return self
 
     @staticmethod
