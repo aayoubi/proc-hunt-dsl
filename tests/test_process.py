@@ -30,6 +30,10 @@ class ProcessTestSuite(unittest.TestCase):
     def test_retrieval_of_nonexistant_remote_process(self):
         self.assertRaises(RemoteExecutionException, Fetcher.metric(CPU).of(150000000).on('dell624srv').retrieve)
 
+    def test_retrieval_of_user_defined_ps_metrics(self):
+        output = Fetcher.metric(USER_DEFINED_PS, "time,rss,vsz").of(25864).on('dell624srv').retrieve().value()
+        self.assertIsNotNone(output)
+
 
 if __name__ == '__main__':
     unittest.main()
