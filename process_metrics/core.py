@@ -36,6 +36,6 @@ class Fetcher:
         return self
 
     @staticmethod
-    def metric(metric, *args):
+    def fetch(metric, *args):
         retriever = Fetcher(metric(*args))
         return retriever
